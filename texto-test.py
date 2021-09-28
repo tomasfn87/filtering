@@ -100,6 +100,7 @@ class TestTexto:
     @pytest.mark.parametrize("texto, resultado", [
         ("123.456.789-01",                 12345678901),
         ("+55(11)98765-4321)",             5511987654321),
+        ("!S01234567890E~^",               "01234567890"),
         ("afduhas3fdiuha2sduf1hasdjfhasd", 321),
         ("papagaio",                       "papagaio"),
         ({"nome": "arara", "tipo": "ave"}, {"nome": "arara", "tipo": "ave"}),
@@ -109,13 +110,22 @@ class TestTexto:
         (True,                             True),
         (False,                            False)
     ])
-    def test_T_reter_numeros(self, texto, resultado, T):
+    def test_T_reter_numeros_simples(self, texto, resultado, T):
         assert T.reter_numeros(texto) == resultado
+    
+    @pytest.mark.parametrize("texto, literal, resultado", [
+        ("1234", True,  "1234"),
+        ("0123", False, "0123"),
+        ("0123", True,  "0123")
+    ])
+    def test_T_reter_numeros_completo(self, texto, literal, resultado, T):
+        assert T.reter_numeros(texto, literal) == resultado
+
     
     @pytest.mark.parametrize("numero, resultado", [
         ("111444777",   [1, 1, 1, 4, 4, 4, 7, 7, 7]),
         ("11144477735", [1, 1, 1, 4, 4, 4, 7, 7, 7, 3, 5]),
-        ("11144477799", [1, 1, 1, 4, 4, 4, 7, 7, 7, 9, 9])
+        ("11144477799", [1, 1, 1, 4, 4, 4, 7, 7, 7, 9, 9]) 
     ])
     def test_T_obter_digitos_simples(self, numero, resultado, T):
         assert T.obter_digitos(numero) == resultado
