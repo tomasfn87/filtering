@@ -36,7 +36,7 @@ class Texto:
             item = ""
         return lista_parenteses
     
-    def reter_numeros(texto):
+    def reter_numeros(texto, literal=False):
         tipo = type(texto)
         if tipo == int or tipo == bool:
             return texto
@@ -46,6 +46,8 @@ class Texto:
                 inteiro += c
         if inteiro == "":
             return texto
+        elif inteiro[0] == "0" or literal == True:
+            return inteiro
         return int(inteiro)
     
     def obter_digitos(numero, limite=False):
