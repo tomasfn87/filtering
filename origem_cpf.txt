@@ -1,1 +1,14 @@
-../family_db/origem_cpf.txt
+O nono dígito mostra a origem do documento: D em CPF(XXX.XXX.XXD-XX):
+
+    1 - Distrito Federal, Goiás, Mato Grosso do Sul e Tocantins;
+    2 - Pará, Amazonas, Acre, Amapá, Rondônia e Roraima;
+    3 - Ceará, Maranhão e Piauí;
+    4 - Pernambuco, Rio Grande do Norte, Paraíba e Alagoas;
+    5 - Bahia e Sergipe;
+    6 - Minas Gerais;
+    7 - Rio de Janeiro e Espírito Santo;
+    8 - São Paulo;
+    9 - Paraná e Santa Catarina;
+    0 - Rio Grande do Sul.
+
+Além do Dígito verificador, é possível verificar a UF emissora e ver se bate com o nono dígito do CPF.
