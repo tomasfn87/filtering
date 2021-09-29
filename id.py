@@ -27,7 +27,7 @@ class Cpf:
         return 11 - dv
     
     def obter_dvs(cpf):
-        digitos_cpf = T.Texto.obter_digitos(cpf, 9)
+        digitos_cpf = T.Texto.obter_lista_digitos(cpf, 9)
         primeiro_dv_cpf = Cpf.calcular_dv(digitos_cpf)
         digitos_cpf.append(primeiro_dv_cpf)
         return primeiro_dv_cpf, Cpf.calcular_dv(digitos_cpf)
