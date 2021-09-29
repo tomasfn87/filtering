@@ -117,7 +117,8 @@ class TestTexto:
         ("1234", True,  "1234"),
         ("0123", True,  "0123"),
         ("0123", False, "0123"),
-        ("0",    False, 0)
+        ("0",    False, 0),
+        ("0",    True,  "0")
     ])
     def test_T_reter_numeros_completo(self, texto, literal, resultado, T):
         assert T.reter_numeros(texto, literal) == resultado
