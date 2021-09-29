@@ -30,12 +30,10 @@ class Cpf:
         digitos_cpf = T.Texto.obter_digitos(cpf, 9)
         primeiro_dv_cpf = Cpf.calcular_dv(digitos_cpf)
         digitos_cpf.append(primeiro_dv_cpf)
-        segundo_dv_cpf = Cpf.calcular_dv(digitos_cpf)
-        return primeiro_dv_cpf, segundo_dv_cpf
+        return primeiro_dv_cpf, Cpf.calcular_dv(digitos_cpf)
     
     def verificar(cpf):
-        cpf = str(cpf)
-        dvs = Cpf.obter_dvs(cpf)
+        cpf, dvs = str(cpf), Cpf.obter_dvs(cpf)
         if int(cpf[-1]) == dvs[-1] and int(cpf[-2]) == dvs[-2]:
             return True
         return False
