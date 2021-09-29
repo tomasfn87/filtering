@@ -55,7 +55,7 @@ class Texto:
             return inteiro
         return int(inteiro)
     
-    def obter_digitos(numero, limite=False):
+    def obter_lista_digitos(numero, limite=False):
         numero = str(numero)
         if limite == False:
             limite = len(numero)
