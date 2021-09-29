@@ -174,13 +174,13 @@ class TestTexto:
         ("11144477735", [1, 1, 1, 4, 4, 4, 7, 7, 7, 3, 5]),
         ("11144477799", [1, 1, 1, 4, 4, 4, 7, 7, 7, 9, 9]) 
     ])
-    def test_T_obter_digitos_simples(self, numero, resultado, T):
-        assert T.obter_digitos(numero) == resultado
+    def test_T_obter_lista_digitos_simples(self, numero, resultado, T):
+        assert T.obter_lista_digitos(numero) == resultado
 
     @pytest.mark.parametrize("numero, limite, resultado", [
         ("111444777",   9,  [1, 1, 1, 4, 4, 4, 7, 7, 7]),
         ("11144477735", 9,  [1, 1, 1, 4, 4, 4, 7, 7, 7]),
         ("11144477799", 11, [1, 1, 1, 4, 4, 4, 7, 7, 7, 9, 9])
     ])
-    def test_T_obter_digitos_completo(self, numero, limite, resultado, T):
-        assert T.obter_digitos(numero, limite) == resultado
+    def test_T_obter_lista_digitos_completo(self, numero, limite, resultado, T):
+        assert T.obter_lista_digitos(numero, limite) == resultado
