@@ -1,3 +1,4 @@
+
 class Texto:
     def adicionar_separador(numero, posicao_do_final=4, separador="-"):
         numero = str(numero)
@@ -26,16 +27,20 @@ class Texto:
     def qual(lista):
         return Texto.conectar(lista, "ou") + "?"
 
-    def lista_parenteses(lista_1, lista_2):
-        lista_parenteses = []
-        item = ""
+    def parear_listas(lista_1, lista_2, pre=False, a="(", d=")", e=" "):
+        lista, item = [], ""
         for i in range(0, len(lista_1)):
-            item += (str(lista_1[i]) + " ("
-            + str(lista_2[i]) + ")")
-            lista_parenteses.append(item)
+            item_L_1, item_L_2 = str(lista_1[i]), str(lista_2[i])
+            if pre == False:
+                item += (item_L_1 + e
+                        + a + item_L_2 + d)
+            else:
+                item += (a + item_L_1 + d
+                        + e + item_L_2)
+            lista.append(item)
             item = ""
-        return lista_parenteses
-    
+        return lista
+
     def reter_numeros(texto, literal=False):
         tipo = type(texto)
         if tipo == int or tipo == bool:
