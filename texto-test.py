@@ -88,14 +88,59 @@ class TestTexto:
         assert T.qual(lista) == resultado
 
     @pytest.mark.parametrize("lista_1, lista_2, resultado", [
-        (["laranja", "pera", "banana"],               [2, 3, 4],                                ['laranja (2)', 'pera (3)', 'banana (4)']),
-        (["eu", "tu", "ela"],                         ["meu", "teu", "dela"],                   ['eu (meu)', 'tu (teu)', 'ela (dela)']),
-        ([2, 3],                                      [20, 30],                                 ['2 (20)', '3 (30)']),
-        (["iPhone", "iPad", "Macbook"],               [2000, 700, 900],                         ['iPhone (2000)', 'iPad (700)', 'Macbook (900)']),
+        ([2, 3],                                      [20, 30],                                 ['2 (20)',          '3 (30)']),
+        (["laranja", "pera", "banana"],               [2, 3, 4],                                ['laranja (2)',     'pera (3)', 'banana (4)']),
+        (["iPhone", "iPad", "Macbook"],               [2000, 700, 900],                         ['iPhone (2000)',   'iPad (700)', 'Macbook (900)']),
+        (["eu", "tu", "ela"],                         ["meu", "teu", "dela"],                   ['eu (meu)',        'tu (teu)', 'ela (dela)']),
         (["tomate", "berinjela", "batata", "cebola"], ["R$4,59", "R$3,89", "R$5,23", "R$2,54"], ['tomate (R$4,59)', 'berinjela (R$3,89)', 'batata (R$5,23)', 'cebola (R$2,54)'])
     ])
-    def test_T_lista_parenteses(self, lista_1, lista_2, resultado, T):
-        assert T.lista_parenteses(lista_1, lista_2) == resultado
+    def test_T_parear_listas_1(self, lista_1, lista_2, resultado, T):
+        assert T.parear_listas(lista_1, lista_2) == resultado
+
+    @pytest.mark.parametrize("lista_1, lista_2, pre, resultado", [
+        (["laranja", "pera", "banana"],               [2, 3, 4],                                True,  ['(laranja) 2',     '(pera) 3',           '(banana) 4']),
+        ([2, 3],                                      [20, 30],                                 True,  ['(2) 20',          '(3) 30']),
+        (["iPhone", "iPad", "Macbook"],               [2000, 700, 900],                         True,  ['(iPhone) 2000',   '(iPad) 700',         '(Macbook) 900']),
+        (["eu", "tu", "ela"],                         ["meu", "teu", "dela"],                   True,  ['(eu) meu',        '(tu) teu',           '(ela) dela']),
+        (["tomate", "berinjela", "batata", "cebola"], ["R$4,59", "R$3,89", "R$5,23", "R$2,54"], True,  ['(tomate) R$4,59', '(berinjela) R$3,89', '(batata) R$5,23', '(cebola) R$2,54']),
+        ([2, 3],                                      [20, 30],                                 False, ['2 (20)',          '3 (30)']),
+        (["laranja", "pera", "banana"],               [2, 3, 4],                                False, ['laranja (2)',     'pera (3)',           'banana (4)']),
+        (["iPhone", "iPad", "Macbook"],               [2000, 700, 900],                         False, ['iPhone (2000)',   'iPad (700)',         'Macbook (900)']),
+        (["eu", "tu", "ela"],                         ["meu", "teu", "dela"],                   False, ['eu (meu)',        'tu (teu)',           'ela (dela)']),
+        (["tomate", "berinjela", "batata", "cebola"], ["R$4,59", "R$3,89", "R$5,23", "R$2,54"], False, ['tomate (R$4,59)', 'berinjela (R$3,89)', 'batata (R$5,23)', 'cebola (R$2,54)'])
+    ])
+    def test_T_parear_listas_2(self, lista_1, lista_2, pre, resultado, T):
+        assert T.parear_listas(lista_1, lista_2, pre) == resultado
+    
+    @pytest.mark.parametrize("lista_1, lista_2, pre, a, d, resultado", [
+        ([2, 3],                                      [20, 30],                                 True,  "[", "]", ['[2] 20',          '[3] 30']),
+        (["laranja", "pera", "banana"],               [2, 3, 4],                                True,  "[", "]", ['[laranja] 2',     '[pera] 3', '[banana] 4']),
+        (["iPhone", "iPad", "Macbook"],               [2000, 700, 900],                         True,  "[", "]", ['[iPhone] 2000',   '[iPad] 700', '[Macbook] 900']),
+        (["eu", "tu", "ela"],                         ["meu", "teu", "dela"],                   True,  "[", "]", ['[eu] meu',        '[tu] teu', '[ela] dela']),
+        (["tomate", "berinjela", "batata", "cebola"], ["R$4,59", "R$3,89", "R$5,23", "R$2,54"], True,  "[", "]", ['[tomate] R$4,59', '[berinjela] R$3,89', '[batata] R$5,23', '[cebola] R$2,54']),
+        ([2, 3],                                      [20, 30],                                 False, "[", "]", ['2 [20]',          '3 [30]']),
+        (["laranja", "pera", "banana"],               [2, 3, 4],                                False, "[", "]", ['laranja [2]',     'pera [3]', 'banana [4]']),
+        (["iPhone", "iPad", "Macbook"],               [2000, 700, 900],                         False, "[", "]", ['iPhone [2000]',   'iPad [700]', 'Macbook [900]']),
+        (["eu", "tu", "ela"],                         ["meu", "teu", "dela"],                   False, "[", "]", ['eu [meu]',        'tu [teu]', 'ela [dela]']),
+        (["tomate", "berinjela", "batata", "cebola"], ["R$4,59", "R$3,89", "R$5,23", "R$2,54"], False, "[", "]", ['tomate [R$4,59]', 'berinjela [R$3,89]', 'batata [R$5,23]', 'cebola [R$2,54]'])
+    ])
+    def test_T_parear_listas_3(self, lista_1, lista_2, pre, a, d, resultado, T):
+        assert T.parear_listas(lista_1, lista_2, pre, a, d) == resultado
+    
+    @pytest.mark.parametrize("lista_1, lista_2, pre, a, d, e, resultado", [
+        ([2, 3],                                      [20, 30],                                 True,  "[", "]", "_-_", ['[2]_-_20',          '[3]_-_30']),
+        (["laranja", "pera", "banana"],               [2, 3, 4],                                True,  "[", "]", "_-_", ['[laranja]_-_2',     '[pera]_-_3',           '[banana]_-_4']),
+        (["iPhone", "iPad", "Macbook"],               [2000, 700, 900],                         True,  "[", "]", "_-_", ['[iPhone]_-_2000',   '[iPad]_-_700',         '[Macbook]_-_900']),
+        (["eu", "tu", "ela"],                         ["meu", "teu", "dela"],                   True,  "[", "]", "_-_", ['[eu]_-_meu',        '[tu]_-_teu',           '[ela]_-_dela']),
+        (["tomate", "berinjela", "batata", "cebola"], ["R$4,59", "R$3,89", "R$5,23", "R$2,54"], True,  "[", "]", "_-_", ['[tomate]_-_R$4,59', '[berinjela]_-_R$3,89', '[batata]_-_R$5,23', '[cebola]_-_R$2,54']),
+        ([2, 3],                                      [20, 30],                                 False, "[", "]", "_-_", ['2_-_[20]',          '3_-_[30]']),
+        (["laranja", "pera", "banana"],               [2, 3, 4],                                False, "[", "]", "_-_", ['laranja_-_[2]',     'pera_-_[3]',           'banana_-_[4]']),
+        (["iPhone", "iPad", "Macbook"],               [2000, 700, 900],                         False, "[", "]", "_-_", ['iPhone_-_[2000]',   'iPad_-_[700]',         'Macbook_-_[900]']),
+        (["eu", "tu", "ela"],                         ["meu", "teu", "dela"],                   False, "[", "]", "_-_", ['eu_-_[meu]',        'tu_-_[teu]',           'ela_-_[dela]']),
+        (["tomate", "berinjela", "batata", "cebola"], ["R$4,59", "R$3,89", "R$5,23", "R$2,54"], False, "[", "]", "_-_", ['tomate_-_[R$4,59]', 'berinjela_-_[R$3,89]', 'batata_-_[R$5,23]', 'cebola_-_[R$2,54]'])
+    ])
+    def test_T_parear_listas_4(self, lista_1, lista_2, pre, a, d, e, resultado, T):
+        assert T.parear_listas(lista_1, lista_2, pre, a, d, e) == resultado
     
     @pytest.mark.parametrize("texto, resultado", [
         ("123.456.789-01",                 12345678901),
