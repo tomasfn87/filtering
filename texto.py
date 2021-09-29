@@ -46,7 +46,7 @@ class Texto:
                 inteiro += c
         if inteiro == "":
             return texto
-        elif inteiro[0] == "0" or literal == True:
+        elif inteiro[0] == "0" and len(inteiro) != 1 or literal == True:
             return inteiro
         return int(inteiro)
     
