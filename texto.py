@@ -27,11 +27,11 @@ class Texto:
     def qual(lista):
         return Texto.conectar(lista, "ou") + "?"
 
-    def parear_listas(lista_1, lista_2, impressao_formula=False, a="(", d=")", e=" "):
+    def parear_listas(lista_1, lista_2, pre=False, a="(", d=")", e=" "):
         lista, item = [], ""
         for i in range(0, len(lista_1)):
             item_L_1, item_L_2 = str(lista_1[i]), str(lista_2[i])
-            if impressao_formula == False:
+            if pre == False:
                 item += (item_L_1 + e
                         + a + item_L_2 + d)
             else:

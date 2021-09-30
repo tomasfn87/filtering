@@ -5,6 +5,9 @@ class TestTexto:
     @pytest.fixture
     def T(self):
         return texto.Texto
+    @pytest.fixture
+    def Q(self):
+        return texto.Quimica
 
 # Class Texto
     @pytest.mark.parametrize("numero, resultado", [
@@ -181,3 +184,13 @@ class TestTexto:
     ])
     def test_T_obter_lista_digitos_completo(self, numero, limite, resultado, T):
         assert T.obter_lista_digitos(numero, limite) == resultado
+    
+    @pytest.mark.parametrize("texto_formula, resultado",[
+        ("CaCO3", "CaCO₃"),
+        ("H2O", "H₂O"),
+        ("Al2SiO4", "Al₂SiO₄"),
+        ("1234567890", "₁₂₃₄₅₆₇₈₉₀"),
+        ("₁₂₃₄₅₆₇₈₉₀", "₁₂₃₄₅₆₇₈₉₀")
+    ])
+    def test_Q_imprimir_formula(self, texto_formula, resultado, Q):
+        assert Q.imprimir_formula(texto_formula) == resultado
