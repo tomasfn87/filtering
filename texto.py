@@ -66,29 +66,30 @@ class Texto:
     
 class Quimica:
     def imprimir_formula(formula):
-        impressao_formula = ""
         assert type(formula) == str
-        for c in formula:
-            if ord(c) == 48: #0
+        impressao_formula = ""
+        for c in range(0, len(formula)):
+            codigo = ord(formula[c])
+            if codigo == 48: #0
                 impressao_formula += "\U00002080"
-            elif ord(c) == 49: #1
+            elif codigo == 49: #1
                 impressao_formula += "\U00002081"
-            elif ord(c) == 50: #2
+            elif codigo == 50: #2
                 impressao_formula += "\U00002082"
-            elif ord(c) == 51: #3
+            elif codigo == 51: #3
                 impressao_formula += "\U00002083"
-            elif ord(c) == 52: #4
+            elif codigo == 52: #4
                 impressao_formula += "\U00002084"
-            elif ord(c) == 53: #5
+            elif codigo == 53: #5
                 impressao_formula += "\U00002085"
-            elif ord(c) == 54: #6
+            elif codigo == 54: #6
                 impressao_formula += "\U00002086"
-            elif ord(c) == 55: #7
+            elif codigo == 55: #7
                 impressao_formula += "\U00002087"
-            elif ord(c) == 56: #8
+            elif codigo == 56: #8
                 impressao_formula += "\U00002088"
-            elif ord(c) == 57: #9
+            elif codigo == 57: #9
                 impressao_formula += "\U00002089"
             else:
-                impressao_formula += c.upper()
+                impressao_formula += formula[c]
         return impressao_formula
