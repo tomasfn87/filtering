@@ -5,9 +5,6 @@ class TestTexto:
     @pytest.fixture
     def T(self):
         return texto.Texto
-    @pytest.fixture
-    def C(self):
-        return texto.Cpf
 
 # Class Texto
     @pytest.mark.parametrize("numero, resultado", [
