@@ -27,11 +27,11 @@ class Texto:
     def qual(lista):
         return Texto.conectar(lista, "ou") + "?"
 
-    def parear_listas(lista_1, lista_2, pre=False, a="(", d=")", e=" "):
+    def parear_listas(lista_1, lista_2, impressao_formula=False, a="(", d=")", e=" "):
         lista, item = [], ""
         for i in range(0, len(lista_1)):
             item_L_1, item_L_2 = str(lista_1[i]), str(lista_2[i])
-            if pre == False:
+            if impressao_formula == False:
                 item += (item_L_1 + e
                         + a + item_L_2 + d)
             else:
@@ -63,3 +63,32 @@ class Texto:
         for i in range(0, limite):
             lista_digitos.append(int(numero[i]))
         return lista_digitos
+    
+class Quimica:
+    def imprimir_formula(formula):
+        impressao_formula = ""
+        assert type(formula) == str
+        for c in formula:
+            if ord(c) == 48: #0
+                impressao_formula += "\U00002080"
+            elif ord(c) == 49: #1
+                impressao_formula += "\U00002081"
+            elif ord(c) == 50: #2
+                impressao_formula += "\U00002082"
+            elif ord(c) == 51: #3
+                impressao_formula += "\U00002083"
+            elif ord(c) == 52: #4
+                impressao_formula += "\U00002084"
+            elif ord(c) == 53: #5
+                impressao_formula += "\U00002085"
+            elif ord(c) == 54: #6
+                impressao_formula += "\U00002086"
+            elif ord(c) == 55: #7
+                impressao_formula += "\U00002087"
+            elif ord(c) == 56: #8
+                impressao_formula += "\U00002088"
+            elif ord(c) == 57: #9
+                impressao_formula += "\U00002089"
+            else:
+                impressao_formula += c.upper()
+        return impressao_formula
