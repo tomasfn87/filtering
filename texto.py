@@ -12,20 +12,21 @@ class Texto:
                     texto_separado += separador
         return texto_separado
 
-    def conectar(lista_de_itens, conjuncao="e"):
-        conjuncao = str(conjuncao)
+    def conectar(lista_de_itens, espacador_1=" e ", espacador_2=", "):
+        assert type(espacador_1) == str \
+            and  type(espacador_2) == str
         texto = ""
         for i in range(0, len(lista_de_itens)):
             texto += str(lista_de_itens[i])
             if i == len(lista_de_itens) - 1:
                 return texto
             elif i == len(lista_de_itens) - 2:
-                texto += (" " + conjuncao + " ")
+                texto += espacador_1
             else:
-                texto += ", "
+                texto += espacador_2
 
     def qual(lista):
-        return Texto.conectar(lista, "ou") + "?"
+        return Texto.conectar(lista, " ou ") + "?"
 
     def parear_listas(lista_1, lista_2, pre=False, a="(", d=")", e=" "):
         lista, item = [], ""
