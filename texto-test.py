@@ -61,16 +61,16 @@ class TestTexto:
         assert T.adicionar_separador(numero, posicao, separador) == resultado
 
     @pytest.mark.parametrize("lista, conjuncao, resultado", [
-        (['Chocolate', 'manteiga',  'farinha', 'torta de morango', 'leite condensado', 'bala de goma'], "e", "Chocolate, manteiga, farinha, torta de morango, leite condensado e bala de goma"),
-        ([1.1, 1.22, 1.333, 1.4444], "e", '1.1, 1.22, 1.333 e 1.4444'),
-        ([1, 2, 3, 4],               "e", '1, 2, 3 e 4'),
-        (['a',  'a', 'a', 'a'],      "e", 'a, a, a e a'),
-        (['a', 'b', 'b', 'a', 'a'],  "e", 'a, b, b, a e a'),
-        (['Chocolate', 'manteiga',  'farinha', 'torta de morango', 'leite condensado', 'bala de goma'], "ou", "Chocolate, manteiga, farinha, torta de morango, leite condensado ou bala de goma"),
-        ([1.1, 1.22, 1.333, 1.4444], "ou", '1.1, 1.22, 1.333 ou 1.4444'),
-        ([1, 2, 3, 4],               "ou", '1, 2, 3 ou 4'),
-        (['a', 'a', 'a', 'a'],       "ou", 'a, a, a ou a'),
-        (['a', 'b', 'b', 'a', 'a'],  "ou", 'a, b, b, a ou a')
+        (['Chocolate', 'manteiga',  'farinha', 'torta de morango', 'leite condensado', 'bala de goma'], " e ", "Chocolate, manteiga, farinha, torta de morango, leite condensado e bala de goma"),
+        ([1.1, 1.22, 1.333, 1.4444], " e ", '1.1, 1.22, 1.333 e 1.4444'),
+        ([1, 2, 3, 4],               " e ", '1, 2, 3 e 4'),
+        (['a',  'a', 'a', 'a'],      " e ", 'a, a, a e a'),
+        (['a', 'b', 'b', 'a', 'a'],  " e ", 'a, b, b, a e a'),
+        (['Chocolate', 'manteiga',  'farinha', 'torta de morango', 'leite condensado', 'bala de goma'], " ou ", "Chocolate, manteiga, farinha, torta de morango, leite condensado ou bala de goma"),
+        ([1.1, 1.22, 1.333, 1.4444], " ou ", '1.1, 1.22, 1.333 ou 1.4444'),
+        ([1, 2, 3, 4],               " ou ", '1, 2, 3 ou 4'),
+        (['a', 'a', 'a', 'a'],       " ou ", 'a, a, a ou a'),
+        (['a', 'b', 'b', 'a', 'a'],  " ou ", 'a, b, b, a ou a')
     ])
     def test_T_conectar(self, lista, conjuncao, resultado, T):
         assert T.conectar(lista, conjuncao) == resultado
