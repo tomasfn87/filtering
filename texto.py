@@ -65,6 +65,17 @@ class Texto:
             lista_digitos.append(int(numero[i]))
         return lista_digitos
     
+    def trocar_caracter(texto_entrada, sai, entra):
+        assert len(sai) == 1 and len(entra) == 1
+        texto_entrada = str(texto_entrada)
+        texto_saida = ""
+        for c in texto_entrada:
+            if c == sai:
+                texto_saida += entra
+            else:
+                texto_saida += c
+        return texto_saida
+    
 class Quimica:
     def imprimir_formula(formula):
         assert type(formula) == str
