@@ -184,6 +184,14 @@ class TestTexto:
     ])
     def test_T_obter_lista_digitos_completo(self, numero, limite, resultado, T):
         assert T.obter_lista_digitos(numero, limite) == resultado
+
+    @pytest.mark.parametrize("texto, sai, entra, resultado", [
+        ("R$5.25", ".", ",", "R$5,25"),
+        ("https://python,org", ",", ".", "https://python.org"),
+        ("Preço_lista:", "_", " ", "Preço lista:")
+    ])
+    def  test_T_trocar_caracter(self, texto, sai, entra, resultado, T):
+        assert T.trocar_caracter(texto, sai, entra) == resultado
     
     @pytest.mark.parametrize("texto_formula, resultado",[
         ("CaCO3", "CaCO₃"),
