@@ -28,16 +28,17 @@ class Texto:
     def qual(lista):
         return Texto.conectar(lista, " ou ") + "?"
 
-    def parear_listas(lista_1, lista_2, pre=False, a="(", d=")", e=" "):
+    def parear_listas(lista_1, lista_2, pre=False, antes="(", depois=")", \
+        entre=" "):
         lista, item = [], ""
         for i in range(0, len(lista_1)):
             item_L_1, item_L_2 = str(lista_1[i]), str(lista_2[i])
             if pre == False:
-                item += (item_L_1 + e
-                        + a + item_L_2 + d)
+                item += (item_L_1 + entre
+                        + antes + item_L_2 + depois)
             else:
-                item += (a + item_L_1 + d
-                        + e + item_L_2)
+                item += (antes + item_L_1 + depois
+                        + entre + item_L_2)
             lista.append(item)
             item = ""
         return lista
@@ -65,7 +66,7 @@ class Texto:
             lista_digitos.append(int(numero[i]))
         return lista_digitos
     
-    def trocar_caracter(texto_entrada, sai, entra):
+    def trocar_caracter(texto_entrada, sai=".", entra=","):
         assert len(sai) == 1 and len(entra) == 1
         texto_entrada = str(texto_entrada)
         texto_saida = ""
@@ -75,6 +76,12 @@ class Texto:
             else:
                 texto_saida += c
         return texto_saida
+    
+    def espacar(n):
+        espaco = ""
+        while len(espaco) < n:
+            espaco += " "
+        return espaco
     
 class Quimica:
     def imprimir_formula(formula):
