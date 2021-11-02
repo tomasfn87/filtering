@@ -211,6 +211,11 @@ class TestTexto:
 
     @pytest.mark.parametrize("numero, resultado, tipo", [
         ("1.234a", False, bool),
+        ("1.23.4", False, bool),
+        ("1,23,4", False, bool),
+        ("1.23,4", False, bool),
+        ("1,23.4", False, bool),
+        ("1.234", 1.234, float),
         ("1.234", 1.234, float),
         ("1,234", 1.234, float),
         ("1", 1, int)
