@@ -95,7 +95,10 @@ class Texto:
                 return False
             if c in caracteres_permitidos:
                 if c in [",", "."]:
-                    real = True
+                    if real == False:
+                        real = True
+                    else:
+                        return False
                     numero_preparado += "."
                 else:
                     numero_preparado += c
