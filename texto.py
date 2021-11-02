@@ -83,6 +83,26 @@ class Texto:
             espaco += " "
         return espaco
     
+    def verificar_numero(numero):
+        numero = str(numero)
+        caracteres_permitidos = [
+            "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", ".", ","
+        ]
+        real = False
+        numero_preparado = ""
+        for c in numero:
+            if c not in caracteres_permitidos:
+                return False
+            if c in caracteres_permitidos:
+                if c in [",", "."]:
+                    real = True
+                    numero_preparado += "."
+                else:
+                    numero_preparado += c
+        if real == True:
+            return float(numero_preparado)
+        return int(numero_preparado)
+
 class Quimica:
     def imprimir_formula(formula):
         assert type(formula) == str

@@ -44,7 +44,7 @@ class TestTexto:
     def test_T_adicionar_separador_intermediario(self, numero, posicao, resultado, T):
         # Intermediário, pois não é passado o terceiro parâmetro
         assert T.adicionar_separador(numero, posicao) == resultado
-    
+
     @pytest.mark.parametrize("numero, posicao, separador, resultado", [
         ("0800123456", 6, " ", "0800 123456"),
         ("0800122436", 6, ".", "0800.122436"),
@@ -185,15 +185,41 @@ class TestTexto:
     def test_T_obter_lista_digitos_completo(self, numero, limite, resultado, T):
         assert T.obter_lista_digitos(numero, limite) == resultado
 
+    @pytest.mark.parametrize("texto, resultado", [
+        ("1.000", "1,000"),
+        ("R$9.30", "R$9,30"),
+        ("π ≅ 3.14", "π ≅ 3,14")
+    ])
+    def  test_T_trocar_caracter_simples(self, texto, resultado, T):
+        assert T.trocar_caracter(texto) == resultado
+
     @pytest.mark.parametrize("texto, sai, entra, resultado", [
         ("R$5.25", ".", ",", "R$5,25"),
         ("https://python,org", ",", ".", "https://python.org"),
         ("Preço_lista:", "_", " ", "Preço lista:")
     ])
-    def  test_T_trocar_caracter(self, texto, sai, entra, resultado, T):
+    def test_T_trocar_caracter_completo(self, texto, sai, entra, resultado, T):
         assert T.trocar_caracter(texto, sai, entra) == resultado
     
-    @pytest.mark.parametrize("texto_formula, resultado",[
+    @pytest.mark.parametrize("n, resultado", [
+        (3, "   "),
+        (5, "     "),
+        (7, "       ")
+    ])
+    def test_T_espacar(self, n, resultado, T):
+        assert T.espacar(n) == resultado
+
+    @pytest.mark.parametrize("numero, resultado, tipo", [
+        ("1.234a", False, bool),
+        ("1.234", 1.234, float),
+        ("1,234", 1.234, float),
+        ("1", 1, int)
+    ])
+    def test_T_verificar_numero(self, numero, resultado, tipo, T):
+        assert T.verificar_numero(numero) == resultado and \
+            type(resultado) == tipo
+    
+    @pytest.mark.parametrize("texto_formula, resultado", [
         ("CaCO3", "CaCO₃"),
         ("H2O", "H₂O"),
         ("Al2SiO4", "Al₂SiO₄"),
