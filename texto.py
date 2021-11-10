@@ -84,6 +84,8 @@ class Texto:
         return espaco
     
     def verificar_numero(numero):
+        if len(numero) == 0:
+            return False
         numero = str(numero)
         caracteres_permitidos = [
             "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", ".", ","
