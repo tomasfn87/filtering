@@ -218,7 +218,8 @@ class TestTexto:
         ("1.234", 1.234, float),
         ("1.234", 1.234, float),
         ("1,234", 1.234, float),
-        ("1", 1, int)
+        ("1", 1, int),
+        ("", False, bool)
     ])
     def test_T_verificar_numero(self, numero, resultado, tipo, T):
         assert T.verificar_numero(numero) == resultado and \
