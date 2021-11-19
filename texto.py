@@ -1,10 +1,9 @@
-
 class Texto:
     def adicionar_separador(numero, posicao_do_final=4, separador="-"):
         numero = str(numero)
         if len(numero) <= posicao_do_final:
             return numero + separador
-        else:      
+        else:
             texto_separado = ""
             for i in range(0, len(numero)):
                 texto_separado += numero[i]
@@ -56,7 +55,7 @@ class Texto:
         elif inteiro[0] == "0" and len(inteiro) != 1 or literal == True:
             return inteiro
         return int(inteiro)
-    
+
     def obter_lista_digitos(numero, limite=False):
         numero = str(numero)
         if limite == False:
@@ -65,7 +64,7 @@ class Texto:
         for i in range(0, limite):
             lista_digitos.append(int(numero[i]))
         return lista_digitos
-    
+
     def trocar_caracter(texto_entrada, sai=".", entra=","):
         assert len(sai) == 1 and len(entra) == 1
         texto_entrada = str(texto_entrada)
@@ -76,13 +75,13 @@ class Texto:
             else:
                 texto_saida += c
         return texto_saida
-    
+
     def espacar(n):
         espaco = ""
         while len(espaco) < n:
             espaco += " "
         return espaco
-    
+
     def verificar_numero(numero):
         if len(numero) == 0:
             return False
@@ -110,9 +109,9 @@ class Texto:
 
     def cleanSpacesOutside(text):
         ''' Receives a text and removes all spaces outside of simple
-        or double brackets ('', ""), so as to minimize without
+        or double brackets ('', ""), so as to minify without
         altering string contents. Example:
-        "{ 'text': 'any text' }" returns "{'text':'any text'}"
+        "[  { 'text': 'any text' }  ]" returns "[{'text':'any text'}]"
         '''
         assert type(text) == str
         cleanText, endStringChar = "", ""
