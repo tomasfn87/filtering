@@ -229,7 +229,9 @@ class TestTexto:
         ("{ 'nome': 'Animalzinho bravo' }", "{'nome':'Animalzinho bravo'}"),
         ("{     'nome':     'Animalzinho bravo'    }", "{'nome':'Animalzinho bravo'}"),
         ('{ "nome": "Animalzinho bravo"}', '{"nome":"Animalzinho bravo"}'),
-        ('{     "nome":     "Animalzinho bravo"    }', '{"nome":"Animalzinho bravo"}')
+        ('{     "nome":     "Animalzinho bravo"    }', '{"nome":"Animalzinho bravo"}'),
+        ('    " ' ' ' ' ' ' "    ', '" ' ' ' ' ' ' "'),
+        ("    ' " " " " " " '    ", "' " " " " " " '")
     ])
     def test_cleanEmptySpacesOutOfStrings(self, text, resultado, T):
         assert T.cleanSpacesOutside(text) == resultado
