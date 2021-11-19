@@ -116,16 +116,17 @@ class Texto:
         assert type(text) == str
         cleanText, endStringChar = "", ""
         for i in range(0, len(text)):
-            if not endStringChar and text[i] in ['"', "'"]:
-                if text[i] == '"':
-                    endStringChar = '"'
-                else:
-                    endStringChar = "'"
-                cleanText += endStringChar
-            elif endStringChar and text[i] == endStringChar:
+            if endStringChar and text[i] == endStringChar:
                 cleanText += endStringChar
                 endStringChar = ""
-            elif text[i] == " " and not endStringChar:
+            elif text[i] in ['"', "'"]:
+                if not endStringChar:
+                    endStringChar = text[i]
+                    cleanText += endStringChar
+                else:
+                    cleanText += text[i]
+            elif text[i] == " " and not endStringChar or\
+                text[i] == "\n":
                 pass
             else:
                 cleanText += text[i]
