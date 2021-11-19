@@ -108,6 +108,30 @@ class Texto:
             return float(numero_preparado)
         return int(numero_preparado)
 
+    def cleanSpacesOutside(text):
+        ''' Receives a text and removes all spaces outside of simple
+        or double brackets ('', ""), so as to minimize without
+        altering string contents. Example:
+        "{ 'text': 'any text' }" returns "{'text':'any text'}"
+        '''
+        assert type(text) == str
+        cleanText, endStringChar = "", ""
+        for i in range(0, len(text)):
+            if not endStringChar and text[i] in ['"', "'"]:
+                if text[i] == '"':
+                    endStringChar = '"'
+                else:
+                    endStringChar = "'"
+                cleanText += endStringChar
+            elif endStringChar and text[i] == endStringChar:
+                cleanText += endStringChar
+                endStringChar = ""
+            elif text[i] == " " and not endStringChar:
+                pass
+            else:
+                cleanText += text[i]
+        return cleanText
+
 class Quimica:
     def imprimir_formula(formula):
         assert type(formula) == str
