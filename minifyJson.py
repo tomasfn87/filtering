@@ -9,6 +9,7 @@ def minify(jsonFile):
 
     minifiedJson = Texto.cleanSpacesOutside(json_str)
     
+    # to further manipulate json data:
     # json_value = json.loads(minifiedJson)
 
     print(minifiedJson)
