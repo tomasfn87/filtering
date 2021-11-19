@@ -224,7 +224,16 @@ class TestTexto:
     def test_T_verificar_numero(self, numero, resultado, tipo, T):
         assert T.verificar_numero(numero) == resultado and \
             type(resultado) == tipo
-    
+
+    @pytest.mark.parametrize("text, resultado", [
+        ("{ 'nome': 'Animalzinho bravo' }", "{'nome':'Animalzinho bravo'}"),
+        ("{     'nome':     'Animalzinho bravo'    }", "{'nome':'Animalzinho bravo'}"),
+        ('{ "nome": "Animalzinho bravo"}', '{"nome":"Animalzinho bravo"}'),
+        ('{     "nome":     "Animalzinho bravo"    }', '{"nome":"Animalzinho bravo"}')
+    ])
+    def test_cleanEmptySpacesOutOfStrings(self, text, resultado, T):
+        assert T.cleanSpacesOutside(text) == resultado
+
     @pytest.mark.parametrize("texto_formula, resultado", [
         ("CaCO3", "CaCO₃"),
         ("H2O", "H₂O"),
