@@ -2,7 +2,4 @@ __pycache__/
 .texto.py.swp
 .vscode/
 .familydb-skipsync
-minifyJson.py
-minJson.sh
-sample.json
 sampleMinified.json
