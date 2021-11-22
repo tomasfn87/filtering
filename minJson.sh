@@ -1,28 +1,47 @@
-echo "JSON file to be minified:";
-read -ei "$(echo $HOME)"/ JSONFILE; echo;
+verifyJson () {
+    echo $(python3 $HOME/filtering/verifyJson.py $1)
+}
 
-echo "Checking JSON file integrity...";
+openJson () {   
+    echo "Checking JSON file integrity...";
 
-if [ $( python3 $HOME/filtering/verifyJson.py $JSONFILE ) == 0 ]
-then
-    echo "ERROR: invalid JSON file. Exiting...";
-    exit 1;
-else
-    echo "DONE.";
-fi;
+    if [ $(verifyJson $1) == 1 ];
+    then
+        echo "ERROR: not a JSON file.";
+        echo; echo "Please choose a JSON file ('file.json'):";
+        return 1
+    elif [ $(verifyJson $JSONFILE) == 2 ];
+    then 
+        echo "ERROR: invalid JSON data.";
+        echo; echo "Please choose a valid JSON file:";
+        return 2
+    else
+        echo "JSON validation: OK"
+        return 0
+    fi;
+}
+
+echo "Choose JSON file to minify:";
+read -ei "$(echo $HOME)"/ JSONFILE;
+openJson $JSONFILE
+while [ $? != 0 ];
+do
+    read -ei "$(echo $JSONFILE)" JSONFILE;
+    openJson $JSONFILE
+done;
 
 echo; echo "Save minified JSON file to:";
-read -ei "$(echo $JSONFILE)" MINIFIEDJSON; echo;
+read -ei "$(echo $JSONFILE)" MINIFIEDJSON;
 
 while [ $MINIFIEDJSON == $JSONFILE ]
 do
-    echo "ERROR: cannot overwrite '$JSONFILE'.";
+    echo "ERROR: cannot overwrite source file '$JSONFILE'.";
     echo; echo "Please rename the minified file or save it to another folder:";
-    read -ei "$(echo $JSONFILE)" MINIFIEDJSON;
+    read -ei "$(echo $MINIFIEDJSON)" MINIFIEDJSON;
 done;
 
+echo "Minifying JSON file..."
 python3 $HOME/filtering/minifyJson.py $JSONFILE | cat > $MINIFIEDJSON;
-echo; echo "Minified JSON saved to: ";
-echo "'$MINIFIEDJSON'.";
-
-exit 0
+echo "JSON minification: DONE";
+echo; echo "File saved to $MINIFIEDJSON";
+exit 0;
