@@ -6,11 +6,8 @@ Texto = texto.Texto
 def minify(jsonFile):
     with open(jsonFile, "r") as fh:
         json_str = fh.read()
-
-    minifiedJson = Texto.cleanSpacesOutside(json_str)
     
-    # to further manipulate json data:
-    # json_value = json.loads(minifiedJson)
+    minifiedJson = Texto.cleanSpacesOutside(json_str)
 
     print(minifiedJson)
 
