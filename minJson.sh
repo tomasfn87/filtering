@@ -3,7 +3,7 @@ read -ei "$(echo $HOME)"/ JSONFILE; echo;
 
 echo "Checking JSON file integrity...";
 
-if [ $( python3 ./verifyJson.py $JSONFILE ) == 0 ]
+if [ $( python3 $HOME/filtering/verifyJson.py $JSONFILE ) == 0 ]
 then
     echo "ERROR: invalid JSON file. Exiting...";
     exit 1;
@@ -21,7 +21,7 @@ do
     read -ei "$(echo $JSONFILE)" MINIFIEDJSON;
 done;
 
-python3 ./minifyJson.py $JSONFILE | cat > $MINIFIEDJSON;
+python3 $HOME/filtering/minifyJson.py $JSONFILE | cat > $MINIFIEDJSON;
 echo; echo "Minified JSON saved to: ";
 echo "'$MINIFIEDJSON'.";
 
