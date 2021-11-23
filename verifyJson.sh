@@ -1,16 +1,14 @@
 #!/bin/bash
-OK () {
-    gawk -F ":" '
-    BEGIN {
-    printf "%s", "\033[1;32m" "OK" "\033[0m"
-    } '
+paintGreen () {
+    gawk -v text=$1 'BEGIN {
+        printf "%s", "\033[1;32m" text "\033[0m"
+    }'
 }
 
-ERROR () {
-    gawk -F ":" '
-    BEGIN {
-    printf "%s", "\033[31m" "ERROR" "\033[0m"
-    } '
+paintRed () {
+    gawk -v text=$1 'BEGIN {
+        printf "%s", "\033[1;31m" text "\033[0m"
+    }'
 }
 
 verifyJson () {
@@ -19,13 +17,13 @@ verifyJson () {
 
 if [ $(verifyJson $1) == 0 ];
 then
-    echo "JSON validation: $(OK)";
+    echo "JSON validation: $(paintGreen OK)";
     exit 0;
 elif [ $(verifyJson $1) == 1 ];
 then
-    echo "$(ERROR): not a JSON file";
+    echo "$(paintRed ERROR): not a JSON file";
     exit 1;
 else
-    echo "$(ERROR): invalid JSON data";
+    echo "$(paintRed ERROR): invalid JSON data";
     exit 2;
 fi;
