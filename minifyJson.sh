@@ -64,7 +64,7 @@ python3 $HOME/filtering/minifyJson.py $JSONFILE | cat > $MINIFIEDJSON;
 echo "JSON minification: $(toGreen DONE)";
 echo; echo "File saved to $(toGreen $MINIFIEDJSON)";
 
-echo "Checking $MINIFIEDJSON..."
+echo "Checking '$MINIFIEDJSON'..."
 if [ $(verifyJson $MINIFIEDJSON) != 0 ];
 then
     echo "$(toRed ERROR): minified JSON validation failed";
