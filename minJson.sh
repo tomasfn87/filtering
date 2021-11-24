@@ -52,8 +52,23 @@ do
     read -ei "$(echo $MINIFIEDJSON)" MINIFIEDJSON;
 done;
 
+while [ $(verifyJson $MINIFIEDJSON) == 1 ];
+do
+    echo "$(toRed ERROR): minified JSON file extension must be '.json'";
+    echo "Please change the file extension to '.json':";
+    read -ei "$(echo $MINIFIEDJSON)" MINIFIEDJSON;
+done;
+
 echo "Minifying JSON file..."
 python3 $HOME/filtering/minifyJson.py $JSONFILE | cat > $MINIFIEDJSON;
 echo "JSON minification: $(toGreen DONE)";
 echo; echo "File saved to $(toGreen $MINIFIEDJSON)";
+
+echo "Checking $MINIFIEDJSON..."
+if [ $(verifyJson $MINIFIEDJSON) != 0 ];
+then
+    echo "$(toRed ERROR): minified JSON validation failed";
+else
+    echo "Minified JSON validation: $(toGreen OK)";
+fi;
 exit 0;
