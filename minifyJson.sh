@@ -62,7 +62,7 @@ done;
 echo "Minifying JSON file..."
 python3 $HOME/filtering/minify.py $JSONFILE | cat > $MINIFIEDJSON;
 echo "JSON minification: $(toGreen DONE)";
-echo; echo "File saved to $(toGreen $MINIFIEDJSON)";
+echo; echo "File saved to $(toBlue $MINIFIEDJSON)";
 
 echo "Checking '$MINIFIEDJSON'..."
 if [ $(verifyJson $MINIFIEDJSON) != 0 ];
