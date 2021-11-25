@@ -19,6 +19,5 @@ fi;
 
 echo "Minifying file..."
 python3 $HOME/filtering/minify.py $1 | cat > $2;
-echo "File minification: $(toGreen DONE)";
-echo "File saved to $(toGreen $2)";
+echo "$(toGreen DONE)". "File saved to $(toGreen $2)";
 exit 0;
