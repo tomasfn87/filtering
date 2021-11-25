@@ -12,18 +12,18 @@ def isExtensionJson(file):
 
 def verify(file):
     if not isExtensionJson(file):
-        print(1) # Error #1: not a JSON file
-        return
+        # Error #1: not a JSON file
+        return print(1)
     jsonFile = file
     with open(jsonFile, "r") as fh:
         json_str = fh.read()
     try:
         json_data = json.loads(json_str)
-        print(0) #1: Ok, valid JSON
-        return
+        #1: Ok, valid JSON
+        return print(0)
     except:
-        print(2) # Error #2: invalid JSON data
-        return
+        # Error #2: invalid JSON data
+        return print(2)
 
 if __name__ == "__main__":
     import sys
