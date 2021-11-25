@@ -60,7 +60,7 @@ do
 done;
 
 echo "Minifying JSON file..."
-python3 $HOME/filtering/minifyJson.py $JSONFILE | cat > $MINIFIEDJSON;
+python3 $HOME/filtering/minify.py $JSONFILE | cat > $MINIFIEDJSON;
 echo "JSON minification: $(toGreen DONE)";
 echo; echo "File saved to $(toGreen $MINIFIEDJSON)";
 
