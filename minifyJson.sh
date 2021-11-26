@@ -14,61 +14,52 @@ verifyJson () {
     echo $(python3 $HOME/filtering/verifyJson.py $1)
 }
 
-openJson () {   
-    echo "Checking JSON file integrity...";
-
-    if [ $(verifyJson $1) == 1 ];
-    then
-        echo "$(toRed ERROR): not a JSON file";
-        echo; echo "Please choose a JSON file ('file.json'):";
-        return 1
-    elif [ $(verifyJson $JSONFILE) == 2 ];
-    then 
-        echo "$(toRed ERROR): invalid JSON data";
-        echo; echo "Please choose a valid JSON file:";
-        return 2
-    else
-        echo "JSON validation: $(toGreen OK)";
-        return 0
-    fi;
-}
-
-echo "Choose JSON file to minify:";
-read -ei "$(echo $HOME)"/ JSONFILE;
-openJson $JSONFILE
-while [ $? != 0 ];
-do
-    read -ei "$(echo $JSONFILE)" JSONFILE;
-    openJson $JSONFILE
-done;
-
-echo; echo "Save minified JSON file to:";
-read -ei "$(echo $JSONFILE)" MINIFIEDJSON;
-
-while [ $MINIFIEDJSON == $JSONFILE ]
-do
-    echo "$(toRed ERROR): cannot overwrite source file $(toBlue $JSONFILE)";
-    echo "Please rename the minified file or save it to another folder:";
-    read -ei "$(echo $MINIFIEDJSON)" MINIFIEDJSON;
-done;
-
-while [ $(verifyJson $MINIFIEDJSON) == 1 ];
-do
-    echo "$(toRed ERROR): minified JSON file extension must be '.json'";
-    echo "Please change the file extension to '.json':";
-    read -ei "$(echo $MINIFIEDJSON)" MINIFIEDJSON;
-done;
-
-echo "Minifying JSON file..."
-python3 $HOME/filtering/minify.py $JSONFILE | cat > $MINIFIEDJSON;
-echo "JSON minification: $(toGreen DONE)";
-echo; echo "File saved to $(toBlue $MINIFIEDJSON)";
-
-echo "Checking '$MINIFIEDJSON'..."
-if [ $(verifyJson $MINIFIEDJSON) != 0 ];
+if [ $2 == $1 ]
 then
-    echo "$(toRed ERROR): minified JSON validation failed";
+    echo "$(toRed ERROR): source file and output file cannot be the same"
+    exit 3;
+fi;
+
+if [ $(verifyJson $2) == 1 ];
+then
+    echo "$(toRed ERROR): output minified JSON file extension must be '.json'";
+    exit 4;
+fi;
+
+echo -n "Checking JSON file integrity...";
+
+if [ $(verifyJson $1) == 1 ];
+then
+    echo "$(toRed ERROR)";
+    echo "Not a JSON file: please choose a JSON file ('file.json'):";
+    exit 1;
+elif [ $(verifyJson $1) == 2 ];
+then 
+    echo "$(toRed ERROR)";
+    echo "Invalid JSON data: please choose a valid JSON file";
+    exit 2;
 else
-    echo "Minified JSON validation: $(toGreen OK)";
+    echo "$(toGreen OK)"; 
+fi;
+
+if [ $2 == $1 ]
+then
+    echo "$(toRed ERROR)";
+    echo "Cannot overwrite source file $(toBlue $1)";
+    exit 3;
+fi;
+
+echo -n "Minifying JSON file..."
+python3 $HOME/filtering/minify.py $1 | cat > $2;
+echo "$(toGreen DONE)";
+echo "File saved to $(toBlue $2)";
+
+echo -n "Checking '$2'..."
+if [ $(verifyJson $2) != 0 ];
+then
+    echo "$(toRed ERROR)"
+    echo "Minified JSON validation failed";
+else
+    echo "$(toGreen OK)";
 fi;
 exit 0;
