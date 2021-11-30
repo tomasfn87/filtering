@@ -1,3 +1,5 @@
+#!/bin/bash
+
 toGreen () { gawk -v text=$1 'BEGIN {
     printf "%s", "\033[1;32m" text "\033[0m" }' 
 }
