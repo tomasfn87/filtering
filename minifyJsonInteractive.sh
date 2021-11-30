@@ -1,3 +1,5 @@
+#!/bin/bash
+
 toGreen () { gawk -v text=$1 'BEGIN {
     printf "%s", "\033[1;32m" text "\033[0m" }' 
 }
@@ -58,6 +60,7 @@ do
     echo "Please change the file extension to '.json':";
     read -ei "$(echo $MINIFIEDJSON)" MINIFIEDJSON;
 done;
+touch $MINIFIEDJSON;
 
 echo "Minifying JSON file..."
 python3 $HOME/filtering/minify.py $JSONFILE | cat > $MINIFIEDJSON;
