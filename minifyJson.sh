@@ -25,6 +25,7 @@ then
     echo "$(toRed ERROR): output minified JSON file extension must be '.json'";
     exit 4;
 fi;
+touch $2;
 
 echo -n "Checking JSON file integrity...";
 
