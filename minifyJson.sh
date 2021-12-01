@@ -16,7 +16,13 @@ verifyJson () {
     echo $(python3 $HOME/filtering/verifyJson.py $1)
 }
 
-if [ $2 == $1 ]
+if [[ $2 == "" || $2 == " " ]]
+then
+    echo "$(toRed ERROR): please specify minified JSON path";
+    exit 5;
+fi;
+
+if [ $2 == $1 ];
 then
     echo "$(toRed ERROR): source file and output file cannot be the same"
     exit 3;
