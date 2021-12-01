@@ -8,8 +8,8 @@ toRed () { gawk -v text=$1 'BEGIN {
     printf "%s", "\033[1;31m" text "\033[0m" }'
 }
 
-toBlue () { gawk -v text=$1 'BEGIN {
-    printf "%s", "\033[1;34m" text "\033[0m" }'
+toYellow () { gawk -v text=$1 'BEGIN {
+    printf "%s", "\033[1;33m" text "\033[0m" }'
 }
 
 verifyJson () {
@@ -49,7 +49,7 @@ read -ei "$(echo $JSONFILE)" MINIFIEDJSON;
 
 while [ $MINIFIEDJSON == $JSONFILE ]
 do
-    echo "$(toRed ERROR): cannot overwrite source file $(toBlue $JSONFILE)";
+    echo "$(toRed ERROR): cannot overwrite source file $(toYellow $JSONFILE)";
     echo "Please rename the minified file or save it to another folder:";
     read -ei "$(echo $MINIFIEDJSON)" MINIFIEDJSON;
 done;
@@ -65,7 +65,7 @@ touch $MINIFIEDJSON;
 echo "Minifying JSON file..."
 python3 $HOME/filtering/minify.py $JSONFILE | cat > $MINIFIEDJSON;
 echo "JSON minification: $(toGreen DONE)";
-echo; echo "File saved to $(toBlue $MINIFIEDJSON)";
+echo; echo "File saved to $(toYellow $MINIFIEDJSON)";
 
 echo "Checking '$MINIFIEDJSON'..."
 if [ $(verifyJson $MINIFIEDJSON) != 0 ];

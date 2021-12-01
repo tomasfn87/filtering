@@ -8,8 +8,8 @@ toRed () { gawk -v text=$1 'BEGIN {
     printf "%s", "\033[1;31m" text "\033[0m" }'
 }
 
-toBlue () { gawk -v text=$1 'BEGIN {
-    printf "%s", "\033[1;34m" text "\033[0m" }'
+toYellow () { gawk -v text=$1 'BEGIN {
+    printf "%s", "\033[1;33m" text "\033[0m" }'
 }
 
 verifyJson () {
@@ -35,17 +35,17 @@ then
 fi;
 touch $2;
 
-echo -n "Checking JSON file integrity...";
+echo -n "Checking JSON file integrity... ";
 
 if [ $(verifyJson $1) == 1 ];
 then
     echo "$(toRed ERROR)";
-    echo "Not a JSON file: please choose a JSON file ('file.json'):";
+    echo "Not a JSON file; please choose a JSON file ('file.json')";
     exit 1;
 elif [ $(verifyJson $1) == 2 ];
 then 
     echo "$(toRed ERROR)";
-    echo "Invalid JSON data: please choose a valid JSON file";
+    echo "Invalid JSON data; please choose a valid JSON file";
     exit 2;
 else
     echo "$(toGreen OK)"; 
@@ -54,7 +54,8 @@ fi;
 echo -n "Minifying JSON file..."
 python3 $HOME/filtering/minify.py $1 | cat > $2;
 echo "$(toGreen DONE)";
-echo "File saved to $(toBlue $2)";
+echo "File saved to:";
+echo "$(toYellow $2)";
 
 echo -n "Checking '$2'..."
 if [ $(verifyJson $2) != 0 ];
