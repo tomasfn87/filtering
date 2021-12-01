@@ -51,13 +51,6 @@ else
     echo "$(toGreen OK)"; 
 fi;
 
-if [ $2 == $1 ]
-then
-    echo "$(toRed ERROR)";
-    echo "Cannot overwrite source file $(toBlue $1)";
-    exit 3;
-fi;
-
 echo -n "Minifying JSON file..."
 python3 $HOME/filtering/minify.py $1 | cat > $2;
 echo "$(toGreen DONE)";
