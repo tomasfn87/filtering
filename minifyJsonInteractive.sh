@@ -1,38 +1,48 @@
 #!/bin/bash
 
 toGreen () { gawk -v text=$1 'BEGIN {
-    printf "%s", "\033[1;32m" text "\033[0m" }' 
+  printf "%s", "\033[1;32m" text "\033[0m" }' 
 }
 
 toRed () { gawk -v text=$1 'BEGIN {
-    printf "%s", "\033[1;31m" text "\033[0m" }'
+  printf "%s", "\033[1;31m" text "\033[0m" }'
 }
 
 toYellow () { gawk -v text=$1 'BEGIN {
-    printf "%s", "\033[1;33m" text "\033[0m" }'
+  printf "%s", "\033[1;33m" text "\033[0m" }'
 }
 
 verifyJson () {
-    echo $(python3 $HOME/filtering/verifyJson.py $1)
+  echo $(python3 $HOME/filtering/verifyJson.py $1)
 }
 
 openJson () {
-    echo "Checking JSON file integrity...";
+  echo -n " * Checking if source file exists...    "
+  if [ -f $1 ];
+  then
+    echo "[$(toGreen OK)]";
+  else
+    echo "$(toRed ERROR): file not found";
+    echo; echo "Please choose an existing file:";
+    return 3
+  fi;
 
-    if [ $(verifyJson $1) == 1 ];
-    then
-        echo "$(toRed ERROR): not a JSON file";
-        echo; echo "Please choose a JSON file ('file.json'):";
-        return 1
-    elif [ $(verifyJson $JSONFILE) == 2 ];
-    then 
-        echo "$(toRed ERROR): invalid JSON data";
-        echo; echo "Please choose a valid JSON file:";
-        return 2
-    else
-        echo "JSON validation: $(toGreen OK)";
-        return 0
-    fi;
+  echo -n " * Checking JSON file integrity...      ";
+
+  if [ $(verifyJson $1) == 1 ];
+  then
+    echo "$(toRed ERROR): not a JSON file";
+    echo; echo "Please choose a JSON file ('file.json'):";
+    return 1
+  elif [ $(verifyJson $JSONFILE) == 2 ];
+  then 
+    echo "$(toRed ERROR): invalid JSON data";
+    echo; echo "Please choose a valid JSON file:";
+    return 2
+  else
+    echo "[$(toGreen OK)]";
+    return 0
+  fi;
 }
 
 echo "Choose JSON file to minify:";
@@ -40,8 +50,8 @@ read -ei "$(echo $HOME)"/ JSONFILE;
 openJson $JSONFILE
 while [ $? != 0 ];
 do
-    read -ei "$(echo $JSONFILE)" JSONFILE;
-    openJson $JSONFILE
+  read -ei "$(echo $JSONFILE)" JSONFILE;
+  openJson $JSONFILE
 done;
 
 echo; echo "Save minified JSON file to:";
@@ -49,29 +59,30 @@ read -ei "$(echo $JSONFILE)" MINIFIEDJSON;
 
 while [ $MINIFIEDJSON == $JSONFILE ]
 do
-    echo "$(toRed ERROR): cannot overwrite source file $(toYellow $JSONFILE)";
-    echo "Please rename the minified file or save it to another folder:";
-    read -ei "$(echo $MINIFIEDJSON)" MINIFIEDJSON;
+  echo "$(toRed ERROR): cannot overwrite source file $(toYellow $JSONFILE)";
+  echo "Please rename the minified file or save it to another folder:";
+  read -ei "$(echo $MINIFIEDJSON)" MINIFIEDJSON;
 done;
 
 while [ $(verifyJson $MINIFIEDJSON) == 1 ];
 do
-    echo "$(toRed ERROR): minified JSON file extension must be '.json'";
-    echo "Please change the file extension to '.json':";
-    read -ei "$(echo $MINIFIEDJSON)" MINIFIEDJSON;
+  echo "$(toRed ERROR): minified JSON file extension must be '.json'";
+  echo "Please change the file extension to '.json':";
+  read -ei "$(echo $MINIFIEDJSON)" MINIFIEDJSON;
 done;
 touch $MINIFIEDJSON;
 
-echo "Minifying JSON file..."
+echo -n " * Minifying JSON file...               "
 python3 $HOME/filtering/minify.py $JSONFILE | cat > $MINIFIEDJSON;
-echo "JSON minification: $(toGreen DONE)";
-echo; echo "File saved to $(toYellow $MINIFIEDJSON)";
+echo "[$(toGreen OK)]";
 
-echo "Checking '$MINIFIEDJSON'..."
+echo -n " * Checking minified output file...     "
 if [ $(verifyJson $MINIFIEDJSON) != 0 ];
 then
-    echo "$(toRed ERROR): minified JSON validation failed";
+  echo "$(toRed ERROR): minified JSON validation failed";
 else
-    echo "Minified JSON validation: $(toGreen OK)";
+  echo "[$(toGreen OK)]";
 fi;
+echo; echo "File saved to $(toYellow $(realpath $MINIFIEDJSON))";
 exit 0;
+
