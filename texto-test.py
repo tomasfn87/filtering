@@ -227,13 +227,15 @@ class TestTexto:
 
     @pytest.mark.parametrize("text, resultado", [
         ("{ 'nome': 'Animalzinho bravo' }", "{'nome':'Animalzinho bravo'}"),
+        ("{\t'nome':\t'Animalzinho bravo'\t}", "{'nome':'Animalzinho bravo'}"),
+        ("{\n\t'nome':\n\t{\t'primeiro':\t'Animalzinho',\n\t\t'sobrenome':\t'bravo'\n\t}\n}", "{'nome':{'primeiro':'Animalzinho','sobrenome':'bravo'}}"),
         ("{     'nome':     'Animalzinho bravo'    }", "{'nome':'Animalzinho bravo'}"),
         ('{ "nome": "Animalzinho bravo"}', '{"nome":"Animalzinho bravo"}'),
         ('{     "nome":     "Animalzinho bravo"    }', '{"nome":"Animalzinho bravo"}'),
-        ('    " ' ' ' ' ' ' "    ', '" ' ' ' ' ' ' "'),
+        ('  \n\t" ' ' ' ' ' '\n\t "    ', '" ' ' ' ' ' ' "'),
         ("    ' " " " " " " '    ", "' " " " " " " '")
     ])
-    def test_cleanEmptySpacesOutOfStrings(self, text, resultado, T):
+    def test_cleanSpacesOutside(self, text, resultado, T):
         assert T.cleanSpacesOutside(text) == resultado
 
     @pytest.mark.parametrize("texto_formula, resultado", [
