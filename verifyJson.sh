@@ -16,7 +16,7 @@ verifyJson () {
   echo $(python3 $HOME/filtering/verifyJson.py $1)
 }
 
-echo -n " * Checking if source file exists...    "
+echo -n " * Checking if file exists...           "
 if [ -f $1 ];
 then
   echo "[$(toGreen OK)]";
@@ -25,7 +25,7 @@ else
   exit 3;
 fi;
 
-echo -n " * Checking if source filed is JSON...  " 
+echo -n " * Checking JSON file integrity...      " 
 if [ $(verifyJson $1) == 0 ];
 then
   echo "[$(toGreen OK)]";
