@@ -126,7 +126,7 @@ class Texto:
                 else:
                     cleanText += text[i]
             elif text[i] == " " and not endStringChar or\
-                text[i] == "\n":
+                text[i] in ["\n", "\t"]:
                 pass
             else:
                 cleanText += text[i]
