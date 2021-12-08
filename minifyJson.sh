@@ -16,7 +16,9 @@ verifyJson () {
   echo $(python3 $HOME/filtering/verifyJson.py $1)
 }
 
-NEW_FILE=maybe
+INPUT="$1";
+OUTPUT="$2";
+NEW_FILE=maybe;
 
 if [ $2 == $1 ];
 then
@@ -89,6 +91,6 @@ then
   echo "Minified JSON validation failed";
 else
   echo "[$(toGreen OK)]";
-  echo; echo "File saved to $(toYellow $2)";
+  echo; echo "File saved to $(toYellow $(realpath $OUTPUT))";
 fi;
 exit 0;
