@@ -43,17 +43,26 @@ class Texto:
         return lista
 
     def reter_numeros(texto, literal=False):
+        real = False
         tipo = type(texto)
-        if tipo == int or tipo == bool:
+        assert tipo in [int, float, str]
+        if tipo in [int, float]:
             return texto
         inteiro = ""
-        for c in str(texto):
+        for c in texto:
+            if inteiro == "" and c == "-":
+                inteiro += c
             if 48 <= ord(c) <= 57:
                 inteiro += c
-        if inteiro == "":
+            elif c in [".", ","] and real == False:
+                inteiro += "."
+                real = True
+        if inteiro in ["", "-", "."]:
             return texto
-        elif inteiro[0] == "0" and len(inteiro) != 1 or literal == True:
+        if literal:
             return inteiro
+        if real == True:
+            return float(inteiro)
         return int(inteiro)
 
     def obter_lista_digitos(numero, limite=False):
@@ -131,6 +140,34 @@ class Texto:
             else:
                 cleanText += text[i]
         return cleanText
+    
+    def turnIntoEnglishOrdinalNumber(number):
+        # Receives a number (float or int) or a string
+        assert type(number) in [int, float, str]
+        if type(number) == str:
+            assert len(number) > 0
+            number = Texto.reter_numeros(number)
+        if type(number) == float:
+            number = int(number)
+        elif type(number) == int:
+            if number == 0:
+                return str(number)
+        ordinal = str(number)
+        if ordinal in ["", "0"]:
+            return ordinal
+        if int(ordinal) in [1, -1]: # Superscript st
+            ordinal += chr(738)
+            ordinal += chr(7511)
+        elif int(ordinal) in [2, -2]: # Superscript nd
+            ordinal += chr(8319)
+            ordinal += chr(7496)
+        elif int(ordinal) in [3, -3]: # Superscript rd
+            ordinal += chr(691)
+            ordinal += chr(7496)
+        else: # Superscript th
+            ordinal += chr(7511)
+            ordinal += chr(688)
+        return ordinal
 
 class Quimica:
     def imprimir_formula(formula):
