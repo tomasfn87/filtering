@@ -54,14 +54,14 @@ class Texto:
                 inteiro += c
             if 48 <= ord(c) <= 57:
                 inteiro += c
-            elif c in [".", ","] and real == False:
+            elif c in [".", ","] and not real:
                 inteiro += "."
                 real = True
         if inteiro in ["", "-", "."]:
             return texto
         if literal:
             return inteiro
-        if real == True:
+        if real:
             return float(inteiro)
         return int(inteiro)
 
@@ -141,32 +141,41 @@ class Texto:
                 cleanText += text[i]
         return cleanText
     
-    def turnIntoEnglishOrdinalNumber(number):
-        # Receives a number (float or int) or a string
-        assert type(number) in [int, float, str]
-        if type(number) == str:
-            assert len(number) > 0
-            number = Texto.reter_numeros(number)
-        if type(number) == float:
-            number = int(number)
-        elif type(number) == int:
-            if number == 0:
-                return str(number)
+    def turnIntoEnglishOrdinalNumber(input_number):
+        ''' Receives a string, a float or an int: if it's a string, function
+        "Texto.reter_numeros()" will be called to try to obtain a number; if
+        it's not possible to obtain a number, the original string will be
+        returned; if it's a float, it will be turned into an int; if "number"
+        receives an int different from zero, if will be turned into a string
+        and the appropriate English language ordinal number suffix in
+        superscript format will be concatenated: "st" for 1, "nd" for 2, "rd"
+        for 3 or "th" for the remaining cases. Also works for negative ints.
+        '''
+        assert type(input_number) in [str, float, int]
+        if type(input_number) == str:
+            assert len(input_number) > 0
+            number = Texto.reter_numeros(input_number)
+            if number == input_number:
+                return number
+        elif type(input_number) == float:
+            number = int(input_number)
+        else:
+            number = input_number
+        if not number:
+            return "0"
         ordinal = str(number)
-        if ordinal in ["", "0"]:
-            return ordinal
-        if int(ordinal) in [1, -1]: # Superscript st
-            ordinal += chr(738)
-            ordinal += chr(7511)
-        elif int(ordinal) in [2, -2]: # Superscript nd
-            ordinal += chr(8319)
-            ordinal += chr(7496)
-        elif int(ordinal) in [3, -3]: # Superscript rd
-            ordinal += chr(691)
-            ordinal += chr(7496)
-        else: # Superscript th
-            ordinal += chr(7511)
-            ordinal += chr(688)
+        if ordinal in ["1", "-1"]: 
+            ordinal += chr(738)      # Superscript "s"
+            ordinal += chr(7511)     # Superscript "t"  
+        elif ordinal in ["2", "-2"]:
+            ordinal += chr(8319)     # Superscript "n"
+            ordinal += chr(7496)     # Superscript "d"
+        elif ordinal in ["3", "-3"]: 
+            ordinal += chr(691)      # Superscript "r"
+            ordinal += chr(7496)     # Superscript "d"
+        else:                        
+            ordinal += chr(7511)     # Superscript "t"
+            ordinal += chr(688)      # Superscript "h"
         return ordinal
 
 class Quimica:
