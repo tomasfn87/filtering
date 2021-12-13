@@ -264,7 +264,8 @@ class TestTexto:
         (1.3451, "1ˢᵗ"),
         (2.002, "2ⁿᵈ"),
         (3.54, "3ʳᵈ"),
-        (4.1238, "4ᵗʰ")
+        (4.1238, "4ᵗʰ"),
+        ("nonumber", "nonumber")
     ])
     def test_turnIntoEnglishOrdinalNumber(self, number, resultado, T):
         assert T.turnIntoEnglishOrdinalNumber(number) == resultado
