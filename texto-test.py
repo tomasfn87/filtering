@@ -143,17 +143,16 @@ class TestTexto:
         assert T.parear_listas(lista_1, lista_2, pre, a, d, e) == resultado
     
     @pytest.mark.parametrize("texto, resultado", [
-        ("123.456.789-01",                 12345678901),
+        ("123.456.789-01",                 123.45678901),
         ("+55(11)98765-4321)",             5511987654321),
-        ("!S01234567890E~^",               "01234567890"),
+        ("!S01234567890E~^",               1234567890),
         ("afduhas3fdiuha2sduf1hasdjfhasd", 321),
         ("papagaio",                       "papagaio"),
-        ({"nome": "arara", "tipo": "ave"}, {"nome": "arara", "tipo": "ave"}),
-        ({"nome": "arara", "peso-kg": 12}, 12),
+        ('{"nome": "arara", "tipo": "ave"}', '{"nome": "arara", "tipo": "ave"}'),
+        ('{"nome": "arara", "peso_kg": 12}', 0.12),
+        ("-ahsdfasofd-1", -1),
         (0,                                0),
-        (1,                                1),
-        (True,                             True),
-        (False,                            False)
+        (1,                                1)
     ])
     def test_T_reter_numeros_simples(self, texto, resultado, T):
         assert T.reter_numeros(texto) == resultado
@@ -161,7 +160,7 @@ class TestTexto:
     @pytest.mark.parametrize("texto, literal, resultado", [
         ("1234", True,  "1234"),
         ("0123", True,  "0123"),
-        ("0123", False, "0123"),
+        ("0123", False, 123),
         ("0",    False, 0),
         ("0",    True,  "0")
     ])
@@ -237,6 +236,38 @@ class TestTexto:
     ])
     def test_cleanSpacesOutside(self, text, resultado, T):
         assert T.cleanSpacesOutside(text) == resultado
+    
+    @pytest.mark.parametrize("number, resultado", [
+        ("-4", "-4ᵗʰ"),
+        ("-3", "-3ʳᵈ"),
+        ("-2", "-2ⁿᵈ"),
+        ("-1", "-1ˢᵗ"),
+        ("0", "0"),
+        ("1", "1ˢᵗ"),
+        ("2", "2ⁿᵈ"),
+        ("3", "3ʳᵈ"),
+        ("4", "4ᵗʰ"),
+        (-4, "-4ᵗʰ"),
+        (-3, "-3ʳᵈ"),
+        (-2, "-2ⁿᵈ"),
+        (-1, "-1ˢᵗ"),
+        (0, "0"),
+        (1, "1ˢᵗ"),
+        (2, "2ⁿᵈ"),
+        (3, "3ʳᵈ"),
+        (4, "4ᵗʰ"),
+        (-4.9, "-4ᵗʰ"),
+        (-3.12, "-3ʳᵈ"),
+        (-2.4, "-2ⁿᵈ"),
+        (-1.1123, "-1ˢᵗ"),
+        (0.900001, "0"),
+        (1.3451, "1ˢᵗ"),
+        (2.002, "2ⁿᵈ"),
+        (3.54, "3ʳᵈ"),
+        (4.1238, "4ᵗʰ")
+    ])
+    def test_turnIntoEnglishOrdinalNumber(self, number, resultado, T):
+        assert T.turnIntoEnglishOrdinalNumber(number) == resultado
 
     @pytest.mark.parametrize("texto_formula, resultado", [
         ("CaCO3", "CaCO₃"),
