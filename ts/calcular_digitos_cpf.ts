@@ -3,10 +3,13 @@ type lista_digitos_cpf = number[]
 type digito_verificador_cpf = number
 type digitos_verificadores_cpf = number[]
 
-// const Cpf:numero_cpf = 111444777
-const Cpf:numero_cpf = process.argv[2]
-
 const obter_lista_digitos = (numero_cpf: numero_cpf):lista_digitos_cpf => {
+/* A função "obter_lista_digitos" recebe como argumento uma string ou
+um número; se o argumento for um número, será transformado em string;
+se o tamanho do número for maior que 9, será impressa uma mensagem de
+aviso, informado que apenas os 9 primeiros dígitos serão utilizados
+para calcular os 2 dígitos verificadores. A função retorna uma lista
+cujos elementos são os dígitos do número de CPF recebido. */
     if (typeof numero_cpf === 'number') {
         numero_cpf = numero_cpf.toString()
     }
@@ -24,6 +27,8 @@ const obter_lista_digitos = (numero_cpf: numero_cpf):lista_digitos_cpf => {
 }
 
 const calcular_dv = (lista_digitos_cpf:lista_digitos_cpf):digito_verificador_cpf => {
+/* A função "calcular_dv" executa o algoritmo de cálculo dos dígitos
+verificadores de um número de CPF. */
     let multiplicador:number = lista_digitos_cpf.length + 1
     let calculo_dv = []
     for (let i of lista_digitos_cpf) {
@@ -43,6 +48,17 @@ const calcular_dv = (lista_digitos_cpf:lista_digitos_cpf):digito_verificador_cpf
 }
 
 const obter_dvs = (Cpf:numero_cpf):digitos_verificadores_cpf => {
+/* A função "obter_dvs" recebe uma lista de dígitos, e verifica se essa
+lista possui ao menos 9 elementos: em caso negativo, imprime uma
+mensagem de erro e retorna uma lista vazia; em caso positivo, a função
+chamará "calcular_dv" para calcular o primeiro dígito verificador. Uma
+vez calculado o primeiro dígito verificador, esse número será incluso
+na lista inicial para que o segundo dígito verificador seja calculado. 
+A função imprimirá o CPF informado e o CPF completo, ambos marcados no
+padrão: XXX.XXX.XXX-DD, onde "X" são os dígitos do CPF e "D" são os
+dígitos verificadores. A função retornará uma lista com os dígitos
+verificadores.
+*/
     let digitos_cpf:lista_digitos_cpf = obter_lista_digitos(Cpf)
     if (digitos_cpf.length < 9) {
         console.error(
@@ -60,5 +76,12 @@ const obter_dvs = (Cpf:numero_cpf):digitos_verificadores_cpf => {
     console.log(`CPF completo: ${cpf_informado}-${dv_1}${dv_2}`)
     return [dv_1, dv_2]
 }
+
+// const Cpf:numero_cpf = 111444777
+const Cpf:numero_cpf = process.argv[2]
+/* "Cpf" recebe um argumento através da linha de comando, para que o
+número de CPF cujos dígitos serão calculados possa ser informado
+diretamente através da CLI.
+Exemplo: ts-node calcular_digitos_cpf.ts 111444777 */
 
 console.log(obter_dvs(Cpf))
