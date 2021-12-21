@@ -15,8 +15,11 @@ def verify(file):
         # Error #1: not a JSON file
         return print(1)
     jsonFile = file
-    with open(jsonFile, "r") as fh:
-        json_str = fh.read()
+    try:
+        with open(jsonFile, "r") as fh:
+            json_str = fh.read()
+    except:
+        return print(3)
     try:
         json_data = json.loads(json_str)
         #No error: valid JSON
