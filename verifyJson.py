@@ -19,7 +19,7 @@ def verify(file):
         json_str = fh.read()
     try:
         json_data = json.loads(json_str)
-        #1: Ok, valid JSON
+        #No error: valid JSON
         return print(0)
     except:
         # Error #2: invalid JSON data
