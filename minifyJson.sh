@@ -27,7 +27,7 @@ then
 fi;
 
 echo -n " * Checking if source file exists...    "
-if [ -f $INPUT ];
+if [ -r $INPUT ];
 then
   echo "[$(toGreen OK)]";
 else
