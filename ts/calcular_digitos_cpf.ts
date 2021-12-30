@@ -3,7 +3,7 @@ type lista_digitos_cpf = number[];
 type digito_verificador_cpf = number;
 type digitos_verificadores_cpf = number[];
 
-const obter_lista_digitos = (
+export const obter_lista_digitos = (
     numero_cpf: numero_cpf, info:string='n'
 ):lista_digitos_cpf => {
 /*  A função "obter_lista_digitos" recebe como argumento uma string ou
@@ -17,7 +17,7 @@ cujos elementos são os dígitos do número de CPF recebido.
 caso, não há diferença entre 'i' e 'a'.
 */
     if (typeof numero_cpf !== 'string') {
-        numero_cpf = numero_cpf.toString()
+        numero_cpf = numero_cpf.toString();
     };
 
     let lista_digitos_cpf:lista_digitos_cpf = [];
@@ -29,7 +29,8 @@ caso, não há diferença entre 'i' e 'a'.
     if (lista_digitos_cpf.length > 9) {
         if (info.toLowerCase() === 'i' || info.toLowerCase() === 'a') {
             console.warn(
-                `Foi recebido um número de CPF com ${lista_digitos_cpf.length} dígitos: só os 9 primeiros serão utilizados`
+                `Foi recebido um número de CPF com \
+${lista_digitos_cpf.length} dígitos: só os 9 primeiros serão utilizados`
             );
         }
         return lista_digitos_cpf.slice(0, 9);
@@ -37,11 +38,12 @@ caso, não há diferença entre 'i' e 'a'.
     return lista_digitos_cpf;
 };
 
-const calcular_dv = (lista_digitos_cpf:lista_digitos_cpf):digito_verificador_cpf => {
+export const calcular_dv = (
+    lista_digitos_cpf:lista_digitos_cpf):digito_verificador_cpf => {
 /* A função "calcular_dv" executa o algoritmo de cálculo dos dígitos
 verificadores de um número de CPF. */
     let multiplicador:number = lista_digitos_cpf.length + 1;
-    let calculo_dv = [];
+    let calculo_dv:number[] = [];
 
     for (let i of lista_digitos_cpf) {
         i *= multiplicador;

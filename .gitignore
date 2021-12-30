@@ -2,3 +2,4 @@ __pycache__/
 .texto.py.swp
 .vscode/
 sampleMinified.json
+ts/node_modules

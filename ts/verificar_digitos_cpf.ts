@@ -3,7 +3,7 @@ import obter_dvs from "./calcular_digitos_cpf"
 type numero_cpf = string | number;
 type digitos_verificadores_cpf = number[];
 
-const comparar_dvs = (
+export const comparar_dvs = (
 /* A função "comparar_dvs" compara os dígitos do CPF recebidos com os
 dígitos do CPF calculados pela função "obter_dvs"
 */
@@ -25,14 +25,14 @@ comprimento é diferente de 11: em caso positivo, será exibida uma
 mensagem de erro e a função retornará vazio.
     Concluídos os testes acima, serão passados os 9 primeiros dígitos
 do número de CPF para a função "obter_dvs", para que os dígitos do CPF
-sejam calculados que serão então armazenados em "dvs_calculados".
-Esses números serão comparados com os dígitos do CPF recebido: se forem
-iguais, será retornado o booleano "true", caso contrário será retornado
-o booleano "false".
+sejam calculados e então armazenados em "dvs_calculados". Esses números
+serão comparados com os dígitos do CPF recebido: se forem iguais, será
+retornado o booleano "true", caso contrário será retornado o booleano
+"false".
     O parâmetro "info" tem por valor padrão 'n', e pode receber 'i' ou
 'a' (ou 'I' ou 'A'): ambas imprimirão informações adicionais. Nesse 
 caso, a diferença é que 'i' mostrará apenas as informações adicionais
-de "verificar_digitos_cpf", enquanto 'a' mostará também as informações
+de "verificar_digitos_cpf", enquanto 'a' mostrará também as informações
 adicionais de "calcular_digitos_cpf".
 */
     if (typeof cpf_completo !== 'string') {
