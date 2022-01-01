@@ -1,3 +1,5 @@
+import limpar_numero from "./limpar_numero";
+
 type numero_cpf = string | number;
 type lista_digitos_cpf = number[];
 type digito_verificador_cpf = number;
@@ -16,9 +18,7 @@ cujos elementos são os dígitos do número de CPF recebido.
 'a' (ou 'I' ou 'A'): ambas imprimirão informações adicionais. Nesse
 caso, não há diferença entre 'i' e 'a'.
 */
-    if (typeof numero_cpf !== 'string') {
-        numero_cpf = numero_cpf.toString();
-    };
+    numero_cpf = limpar_numero(numero_cpf);
 
     let lista_digitos_cpf:lista_digitos_cpf = [];
 
