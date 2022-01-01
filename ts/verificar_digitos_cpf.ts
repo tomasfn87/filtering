@@ -1,3 +1,4 @@
+import limpar_numero from "./limpar_numero";
 import obter_dvs from "./calcular_digitos_cpf"
 
 type numero_cpf = string | number;
@@ -35,9 +36,7 @@ caso, a diferença é que 'i' mostrará apenas as informações adicionais
 de "verificar_digitos_cpf", enquanto 'a' mostrará também as informações
 adicionais de "calcular_digitos_cpf".
 */
-    if (typeof cpf_completo !== 'string') {
-        cpf_completo = cpf_completo.toString()
-    };
+    cpf_completo = limpar_numero(cpf_completo)
 
     if (cpf_completo.length !== 11) {
         console.error("o número de CPF deve possur 11 dígitos");
