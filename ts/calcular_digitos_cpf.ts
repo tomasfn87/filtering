@@ -3,7 +3,9 @@ import limpar_numero from "./limpar_numero";
 type numero_cpf = number | string | object;
 type lista_digitos_cpf = number[];
 type digito_verificador_cpf = number;
-type digitos_verificadores_cpf = digito_verificador_cpf[];
+type digitos_verificadores_cpf = [
+  digito_verificador_cpf, digito_verificador_cpf
+];
 
 export const obter_lista_digitos = (
   numero_cpf:numero_cpf, info:string='n'
