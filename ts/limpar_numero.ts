@@ -5,7 +5,7 @@ const limpar_numero = (numero:numero):string_numerica => {
   let numero_em_limpeza:string_numerica = "";
   let numero_limpo:string_numerica = "";
 
-  if (typeof numero === 'object' && Array.isArray(numero) && numero.length != 0) {
+  if (typeof numero === 'object' && Array.isArray(numero) && numero.length !== 0) {
     for (let i of numero) {
         if (typeof i === 'string') {
           numero_em_limpeza += i;
