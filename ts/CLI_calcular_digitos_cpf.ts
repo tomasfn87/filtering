@@ -15,7 +15,7 @@ let info:string = process.argv[3];
 
 
 function main() {
-    return obter_dvs(Cpf, info)
+  return obter_dvs(Cpf, info)
 }
 
 console.log(main())

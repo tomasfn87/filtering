@@ -13,7 +13,7 @@ let info:string = process.argv[3]
 'i', 'I', 'a' ou 'A', serão exibidas informações adicionais. */
 
 function main() {
-    return verificar_cpf(cpf_completo, info)
+  return verificar_cpf(cpf_completo, info)
 }
 
 console.log(main())
