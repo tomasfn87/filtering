@@ -35,6 +35,7 @@ caso, não há diferença entre 'i' e 'a'.
     }
     return lista_digitos_cpf.slice(0, 9);
   }
+
   return lista_digitos_cpf;
 };
 
