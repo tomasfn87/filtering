@@ -1,7 +1,7 @@
 import limpar_numero from "./limpar_numero";
 import obter_dvs from "./calcular_digitos_cpf";
 
-type numero_cpf = string | number;
+type numero_cpf = number | string | object;
 type digitos_verificadores_cpf = number[];
 
 export const comparar_dvs = (

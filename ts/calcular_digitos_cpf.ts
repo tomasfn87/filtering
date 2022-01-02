@@ -1,6 +1,6 @@
 import limpar_numero from "./limpar_numero";
 
-type numero_cpf = string | number;
+type numero_cpf = number | string | object;
 type lista_digitos_cpf = number[];
 type digito_verificador_cpf = number;
 type digitos_verificadores_cpf = digito_verificador_cpf[];
