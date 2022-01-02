@@ -11,6 +11,10 @@ dígitos do CPF calculados pela função "obter_dvs"
   dvs_recebidos:digitos_verificadores_cpf,
   dvs_calculados:digitos_verificadores_cpf
 ) => {
+  if (dvs_recebidos.length !== 2 || dvs_calculados.length !== 2) {
+    return false;
+  };
+
   for (let i=0; i < dvs_recebidos.length; i++) {
     if (dvs_recebidos[i] !== dvs_calculados[i]) {
       return false;
