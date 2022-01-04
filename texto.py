@@ -42,28 +42,28 @@ class Texto:
             item = ""
         return lista
 
-    def reter_numeros(texto, literal=False, accept_float=False):
+    def reter_numeros(numero, literal=False, accept_float=False):
         real = False
-        tipo = type(texto)
+        tipo = type(numero)
         assert tipo in [int, float, str]
         if tipo in [int, float]:
-            return texto
-        inteiro = ""
-        for c in texto:
-            if inteiro == "" and c == "-":
-                inteiro += c
-            if 48 <= ord(c) <= 57:
-                inteiro += c
-            elif c in [".", ","] and not real and accept_float:
-                inteiro += "."
+            return numero
+        texto_numerico = ""
+        for d in numero:
+            if texto_numerico == "" and d == "-":
+                texto_numerico += d
+            if 48 <= ord(d) <= 57:
+                texto_numerico += d
+            elif d in [".", ","] and not real and accept_float:
+                texto_numerico += "."
                 real = True
-        if inteiro in ["", "-", "."]:
-            return texto
+        if texto_numerico in ["", "-", "."]:
+            return numero
         if literal:
-            return inteiro
+            return texto_numerico
         if real:
-            return float(inteiro)
-        return int(inteiro)
+            return float(texto_numerico)
+        return int(texto_numerico)
 
     def obter_lista_digitos(numero, limite=False):
         numero = str(numero)
