@@ -9,9 +9,9 @@ class TestCalcularDigitosCpf:
         return calcular_digitos_cpf.calcular_digitos
 
     @pytest.mark.parametrize("numero_cpf, resultado", [
-        ("111444777", ("CPF informado: 111.444.777", "Dígitos:       3, 5", "CPF completo:  111.444.777-35")),
-        ("11144477799", ("CPF informado: 111.444.777", "Dígitos:       3, 5", "CPF completo:  111.444.777-35")),
-        ("11144477735", ("CPF informado: 111.444.777", "Dígitos:       3, 5", "CPF completo:  111.444.777-35")),
+        ("111444777", (3, 5)),
+        ("11144477799", (3, 5)),
+        ("11144477735", (3, 5))
     ])
     def test_calcular_digitos(self, numero_cpf, resultado, calcular_digitos):
         assert calcular_digitos(numero_cpf) == resultado
