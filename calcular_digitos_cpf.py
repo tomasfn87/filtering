@@ -1,6 +1,9 @@
 from id import Cpf
+from texto import Texto as T
 
 def calcular_digitos(cpf):
+    cpf = T.reter_numeros(cpf, True)
+    
     assert len(str(cpf)) >= 9
     
     cpf_informado = "{}.{}.{}".format(
@@ -9,21 +12,18 @@ def calcular_digitos(cpf):
 
     digitos = Cpf.obter_dvs(cpf)
 
-    resultado1 = "CPF informado: {}".format(
-        cpf_informado
-    )
+    resultado1 = "CPF informado: {}".format(cpf_informado)
     
-    resultado2 = "Dígitos:       {}, {}".format(
-        digitos[0], digitos[1]
-    )
-    
-    resultado3 = "CPF completo:  {}".format(
+    resultado2 = "CPF completo:  {}".format(
         Cpf.marcar(int(str(cpf[:9]) + str(digitos[0]) + str(digitos[1])))
     )
-    return resultado1, resultado2, resultado3
+    
+    print(resultado1)
+    print(resultado2)
+    
+    return (digitos[0], digitos[1])
 
 if __name__ == "__main__":
     import sys
     cpf = str(sys.argv[1])
-    for resultado in calcular_digitos(cpf):
-        print(resultado)
+    print(calcular_digitos(cpf))
