@@ -86,7 +86,7 @@ verificadores.
 
   if (digitos_cpf.length < 9) {
     if (info.toLowerCase() === 'i' || info.toLowerCase() === 'a') {
-      let e = `Foi recebido um número de CPF com apenas ${digitos_cpf.length}`
+      let e = `Foi recebido um número de CPF com apenas ${digitos_cpf.length} `
       e += "dígitos: o CPF deve ter ao menos 9 dígitos";
       console.error(e);
     }
