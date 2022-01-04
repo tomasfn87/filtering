@@ -3,3 +3,5 @@ __pycache__/
 .vscode/
 sampleMinified.json
 ts/node_modules
+ts/node_modules/@types/node/package.json
+ts/package-lock.json

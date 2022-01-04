@@ -142,7 +142,7 @@ class TestTexto:
     def test_T_parear_listas_4(self, lista_1, lista_2, pre, a, d, e, resultado, T):
         assert T.parear_listas(lista_1, lista_2, pre, a, d, e) == resultado
     
-    @pytest.mark.parametrize("texto, resultado", [
+    @pytest.mark.parametrize("numero, resultado", [
         ("123.456.789-01",                 12345678901),
         ("+55(11)98765-4321)",             5511987654321),
         ("!S01234567890E~^",               1234567890),
@@ -154,30 +154,32 @@ class TestTexto:
         (0,                                0),
         (1,                                1)
     ])
-    def test_T_reter_numeros_simples(self, texto, resultado, T):
-        assert T.reter_numeros(texto) == resultado
+    def test_T_reter_numeros_simples(self, numero, resultado, T):
+        assert T.reter_numeros(numero) == resultado
     
-    @pytest.mark.parametrize("texto, literal, resultado", [
+    @pytest.mark.parametrize("numero, literal, resultado", [
         ("1234", True,  "1234"),
         ("0123", True,  "0123"),
         ("0123", False, 123),
         ("0",    False, 0),
         ("0",    True,  "0")
     ])
-    def test_T_reter_numeros_intermediario(self, texto, literal, resultado, T):
-        assert T.reter_numeros(texto, literal) == resultado
+    def test_T_reter_numeros_intermediario(self, numero, literal, resultado, T):
+        assert T.reter_numeros(numero, literal) == resultado
         
-    @pytest.mark.parametrize("texto, literal, accept_float, resultado", [
+    @pytest.mark.parametrize("numero, literal, accept_float, resultado", [
         ("12.34", True, True, "12.34"),
+        (12.34, True, True, 12.34),
         ("12.34", False, True, 12.34),
         (12.34, False, True, 12.34),
         ("01.23", True, False, "0123"),
         ("01.23", True, True, "01.23"),
         ("01.23", False, True, 1.23),
-        ("-01.23", False, True, -1.23)
+        ("-01.23", False, True, -1.23),
+        ('{"nome": "arara", "peso_kg": 12}', False, True, 0.12)
     ])
-    def test_T_reter_numeros_completo(self, texto, literal, accept_float, resultado, T):
-        assert T.reter_numeros(texto, literal, accept_float) == resultado
+    def test_T_reter_numeros_completo(self, numero, literal, accept_float, resultado, T):
+        assert T.reter_numeros(numero, literal, accept_float) == resultado
     
     @pytest.mark.parametrize("numero, resultado", [
         ("111444777",   [1, 1, 1, 4, 4, 4, 7, 7, 7]),
