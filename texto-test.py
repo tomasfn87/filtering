@@ -143,13 +143,13 @@ class TestTexto:
         assert T.parear_listas(lista_1, lista_2, pre, a, d, e) == resultado
     
     @pytest.mark.parametrize("texto, resultado", [
-        ("123.456.789-01",                 123.45678901),
+        ("123.456.789-01",                 12345678901),
         ("+55(11)98765-4321)",             5511987654321),
         ("!S01234567890E~^",               1234567890),
         ("afduhas3fdiuha2sduf1hasdjfhasd", 321),
         ("papagaio",                       "papagaio"),
         ('{"nome": "arara", "tipo": "ave"}', '{"nome": "arara", "tipo": "ave"}'),
-        ('{"nome": "arara", "peso_kg": 12}', 0.12),
+        ('{"nome": "arara", "peso_kg": 12}', 12),
         ("-ahsdfasofd-1", -1),
         (0,                                0),
         (1,                                1)
@@ -164,9 +164,20 @@ class TestTexto:
         ("0",    False, 0),
         ("0",    True,  "0")
     ])
-    def test_T_reter_numeros_completo(self, texto, literal, resultado, T):
+    def test_T_reter_numeros_intermediario(self, texto, literal, resultado, T):
         assert T.reter_numeros(texto, literal) == resultado
-
+        
+    @pytest.mark.parametrize("texto, literal, accept_float, resultado", [
+        ("12.34", True, True, "12.34"),
+        ("12.34", False, True, 12.34),
+        (12.34, False, True, 12.34),
+        ("01.23", True, False, "0123"),
+        ("01.23", True, True, "01.23"),
+        ("01.23", False, True, 1.23),
+        ("-01.23", False, True, -1.23)
+    ])
+    def test_T_reter_numeros_completo(self, texto, literal, accept_float, resultado, T):
+        assert T.reter_numeros(texto, literal, accept_float) == resultado
     
     @pytest.mark.parametrize("numero, resultado", [
         ("111444777",   [1, 1, 1, 4, 4, 4, 7, 7, 7]),
