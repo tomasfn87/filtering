@@ -107,7 +107,7 @@ verificadores.
   let dv_2:digito_verificador_cpf = calcular_dv(digitos_cpf);
 
   if (info.toLowerCase() === 'i' || info.toLowerCase() === 'a') {
-    console.log(`CPF completo: ${cpf_informado}-${dv_1}${dv_2}`)
+    console.log(`CPF completo:  ${cpf_informado}-${dv_1}${dv_2}`)
   };
 
   return [dv_1, dv_2];
