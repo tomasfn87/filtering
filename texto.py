@@ -42,7 +42,7 @@ class Texto:
             item = ""
         return lista
 
-    def reter_numeros(texto, literal=False):
+    def reter_numeros(texto, literal=False, accept_float=False):
         real = False
         tipo = type(texto)
         assert tipo in [int, float, str]
@@ -54,7 +54,7 @@ class Texto:
                 inteiro += c
             if 48 <= ord(c) <= 57:
                 inteiro += c
-            elif c in [".", ","] and not real:
+            elif c in [".", ","] and not real and accept_float:
                 inteiro += "."
                 real = True
         if inteiro in ["", "-", "."]:
