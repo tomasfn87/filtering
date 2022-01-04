@@ -70,7 +70,7 @@ verificadores de um número de CPF. */
 
 const obter_dvs = (
   Cpf:numero_cpf, info:string='n'
-):digitos_verificadores_cpf => {
+):digitos_verificadores_cpf | [] => {
 /* A função "obter_dvs" recebe uma lista de dígitos, e verifica se essa
 lista possui ao menos 9 elementos: em caso negativo, imprime uma
 mensagem de erro e retorna uma lista vazia; em caso positivo, a função
