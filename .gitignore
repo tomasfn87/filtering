@@ -2,6 +2,6 @@ __pycache__/
 .texto.py.swp
 .vscode/
 sampleMinified.json
-ts/node_modules
+ts/node_modules/ 
 ts/node_modules/@types/node/package.json
 ts/package-lock.json
